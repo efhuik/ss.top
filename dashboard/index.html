@@ -1,111 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ServerSide.Top | Dashboard</title>
-<link rel="icon" href="https://serversiding.neocities.org/assets/icon.png" type="image/png"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/loader.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif}
-body{background:linear-gradient(135deg,#1a0000,#330000,#440000);color:#f5f5f5;display:flex;min-height:100vh}
-.sidebar{width:250px;background:#200000;padding:20px 0;display:flex;flex-direction:column;justify-content:space-between;box-shadow:2px 0 12px rgba(0,0,0,.6)}
-.sidebar h2{color:#ff3b3b;text-align:center;font-size:1.4rem;margin-bottom:30px}
-.sidebar nav{display:flex;flex-direction:column;gap:10px;padding:0 15px}
-.sidebar a{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;color:#f0cfcf;text-decoration:none;font-weight:500;transition:.25s;background:transparent}
-.sidebar a:hover,.sidebar a.active{background:#ff3b3b;color:#fff;box-shadow:0 0 8px #ff3b3baa}
-.sidebar a i{font-size:1rem}
-.main-content{flex:1;padding:40px;overflow:auto}
-.main-content h1{font-size:2rem;font-weight:700;margin-bottom:20px;color:#ff5555;text-shadow:0 0 8px #ff000080}
-.tabs{display:flex;gap:10px;margin-bottom:20px}
-.tab{padding:8px 16px;border-radius:8px;cursor:pointer;transition:.2s;background:#330000;color:#f5f5f5}
-.tab.active{background:#ff3b3b;color:#fff;box-shadow:0 0 10px #ff3b3baa}
-.content-section{display:none;animation:fadeIn 0.3s}
-.content-section.active{display:block}
-#games .blurred,#scripthub .blurred{filter:blur(6px);text-align:center;opacity:.7;font-size:1.2rem;padding:40px;background:#2a0000;border-radius:12px}
-#executor .editor{height:400px;border:1px solid #ff3b3b;border-radius:8px}
-button.execute-btn{margin-top:10px;padding:8px 16px;border:none;background:#ff3b3b;color:#fff;border-radius:8px;cursor:pointer;transition:.2s}
-button.execute-btn:hover{background:#ff5555;box-shadow:0 0 8px #ff4444}
-@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif;}
+body{
+    background:#0c0c0c;
+    color:white;
+    display:flex;
+    min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:250px;
+    background:#111;
+    border-right:1px solid #222;
+    display:flex;
+    flex-direction:column;
+    padding:25px 0;
+}
+
+.sidebar h2{
+    text-align:center;
+    font-size:1.4rem;
+    font-weight:600;
+    margin-bottom:35px;
+    color:#e0e0e0;
+}
+
+.sidebar nav{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:0 20px;
+}
+
+.sidebar a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 14px;
+    border-radius:8px;
+    color:#cfcfcf;
+    text-decoration:none;
+    background:transparent;
+    transition:0.25s;
+}
+
+.sidebar a i{
+    font-size:1rem;
+    color:#888;
+}
+
+.sidebar a:hover{
+    background:#1b1b1b;
+    color:white;
+}
+
+.sidebar a.active{
+    background:#1f1f1f;
+    color:white;
+    font-weight:600;
+}
+
+.sidebar a.disabled{
+    opacity:0.3;
+    pointer-events:none;
+}
+
+/* MAIN CONTENT */
+.main{
+    flex:1;
+    padding:40px;
+}
+
+.main h1{
+    font-size:2rem;
+    margin-bottom:25px;
+    font-weight:600;
+    color:white;
+}
+
+/* CARDS */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#151515;
+    border:1px solid #222;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.3);
+}
+
+.card h3{
+    font-size:1.1rem;
+    margin-bottom:10px;
+    color:#ddd;
+}
+
+.card .actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:10px;
+}
+
+.card .actions a{
+    padding:6px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    background:#222;
+    color:#bbb;
+    border:1px solid #333;
+    transition:.25s;
+}
+
+.card .actions a:hover{
+    background:#333;
+    color:white;
+}
 </style>
 </head>
+
 <body>
 
 <div class="sidebar">
-  <div>
     <h2>ServerSide.Top</h2>
+
     <nav>
-      <a href="#" class="active" onclick="switchTab('dashboard')"><i class="fa fa-house"></i> Dashboard</a>
-      <a href="#" onclick="switchTab('executor')"><i class="fa fa-code"></i> Executor</a>
-      <a href="#" onclick="switchTab('scripthub')"><i class="fa fa-file-code"></i> Script Hub</a>
-      <a href="#" onclick="switchTab('games')"><i class="fa fa-gamepad"></i> Games</a>
+        <a href="/dashboard" class="active"><i class="fa fa-table-columns"></i> Dashboard</a>
+        <a href="/executor"><i class="fa fa-code"></i> Executor</a>
+        <a href="/scripthub"><i class="fa fa-file-code"></i> Script Hub</a>
+        <a href="/games"><i class="fa fa-gamepad"></i> Games</a>
     </nav>
-  </div>
-  <a href="https://discord.gg/KQeNv3mM"><i class="fa fa-discord"></i> Discord</a>
 </div>
 
-<div class="main-content">
-  <!-- Dashboard -->
-  <div id="dashboard" class="content-section active">
-    <h1>Welcome to ServerSide.Top!</h1>
+<div class="main">
+    <h1>Welcome to your Dashboard</h1>
+
     <div class="cards">
-      <div class="card">
-        <h3>Quick actions</h3>
-        <div class="actions">
-          <a onclick="switchTab('executor')">Executor</a>
-          <a onclick="switchTab('scripthub')">Script Hub</a>
-          <a onclick="switchTab('games')">Games</a>
+
+        <div class="card">
+            <h3>Quick Navigation</h3>
+            <div class="actions">
+                <a href="/executor">Executor</a>
+                <a href="/scripthub">Script Hub</a>
+            </div>
         </div>
-      </div>
-      <div class="card">
-        <h3>Social</h3>
-        <div class="actions">
-          <a href="https://discord.gg/KQeNv3mM">Discord</a>
+
+        <div class="card">
+            <h3>Social</h3>
+            <div class="actions">
+                <a href="https://discord.gg/KQeNv3mM" target="_blank">Discord</a>
+            </div>
         </div>
-      </div>
+
     </div>
-  </div>
-
-  <!-- Executor -->
-  <div id="executor" class="content-section">
-    <h1>Executor</h1>
-    <div id="editor" class="editor"></div>
-    <button class="execute-btn" onclick="alert('Executing script...')">Execute</button>
-  </div>
-
-  <!-- Script Hub -->
-  <div id="scripthub" class="content-section">
-    <h1>Script Hub</h1>
-    <div class="blurred">Coming Soon!</div>
-  </div>
-
-  <!-- Games -->
-  <div id="games" class="content-section">
-    <h1>Games</h1>
-    <div class="blurred">All games are blurred until release!</div>
-  </div>
 </div>
-
-<script>
-function switchTab(tab){
-  document.querySelectorAll('.content-section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(tab).classList.add('active');
-  document.querySelectorAll('.sidebar nav a').forEach(a=>a.classList.remove('active'));
-  document.querySelector(`.sidebar nav a[onclick*="${tab}"]`).classList.add('active');
-}
-
-// Monaco Editor setup
-require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs' }});
-require(['vs/editor/editor.main'], function() {
-  monaco.editor.create(document.getElementById('editor'), {
-    value: "-- Write your Roblox script here\n",
-    language: 'lua',
-    theme: 'vs-dark',
-    automaticLayout: true
-  });
-});
-</script>
 
 </body>
 </html>
