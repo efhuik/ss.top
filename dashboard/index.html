@@ -4,169 +4,208 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ServerSide.Top | Dashboard</title>
-
+<link rel="icon" href="https://serversiding.neocities.org/assets/icon.png" type="image/png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif;}
-body{
-    background:#0c0c0c;
-    color:white;
-    display:flex;
-    min-height:100vh;
-}
-
-/* SIDEBAR */
-.sidebar{
-    width:250px;
-    background:#111;
-    border-right:1px solid #222;
-    display:flex;
-    flex-direction:column;
-    padding:25px 0;
-}
-
-.sidebar h2{
-    text-align:center;
-    font-size:1.4rem;
-    font-weight:600;
-    margin-bottom:35px;
-    color:#e0e0e0;
-}
-
-.sidebar nav{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    padding:0 20px;
-}
-
-.sidebar a{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:12px 14px;
-    border-radius:8px;
-    color:#cfcfcf;
-    text-decoration:none;
-    background:transparent;
-    transition:0.25s;
-}
-
-.sidebar a i{
-    font-size:1rem;
-    color:#888;
-}
-
-.sidebar a:hover{
-    background:#1b1b1b;
-    color:white;
-}
-
-.sidebar a.active{
-    background:#1f1f1f;
-    color:white;
-    font-weight:600;
-}
-
-.sidebar a.disabled{
-    opacity:0.3;
-    pointer-events:none;
-}
-
-/* MAIN CONTENT */
-.main{
-    flex:1;
-    padding:40px;
-}
-
-.main h1{
-    font-size:2rem;
-    margin-bottom:25px;
-    font-weight:600;
-    color:white;
-}
-
-/* CARDS */
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:#151515;
-    border:1px solid #222;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 0 10px rgba(0,0,0,0.3);
-}
-
-.card h3{
-    font-size:1.1rem;
-    margin-bottom:10px;
-    color:#ddd;
-}
-
-.card .actions{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-top:10px;
-}
-
-.card .actions a{
-    padding:6px 12px;
-    border-radius:8px;
-    text-decoration:none;
-    background:#222;
-    color:#bbb;
-    border:1px solid #333;
-    transition:.25s;
-}
-
-.card .actions a:hover{
-    background:#333;
-    color:white;
-}
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #2a2a2a);
+    color: #f5f5f5;
+    display: flex;
+    min-height: 100vh;
+  }
+  .sidebar {
+    width: 260px;
+    background: linear-gradient(to bottom, #111111, #1f1f1f);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.6);
+    padding: 20px 0;
+  }
+  .sidebar h2 {
+    color: #ff4c4c;
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+  .sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 15px;
+  }
+  .sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.25s;
+    background: transparent;
+  }
+  .sidebar a:hover, .sidebar a.active {
+    background: #ff4c4c;
+    color: #fff;
+    box-shadow: 0 0 10px #ff4c4c88;
+  }
+  .sidebar a.disabled {
+    background: #2a1a1a;
+    color: #555;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+  }
+  .section {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  .section.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  .card {
+    background: #1f1f1f;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(255,0,0,0.2);
+    margin-bottom: 20px;
+  }
+  .card h3 {
+    color: #ff7777;
+    margin-bottom: 10px;
+  }
+  .card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .blurred {
+    filter: blur(10px) grayscale(80%);
+    pointer-events: none;
+  }
+  /* Monaco editor container */
+  #executorEditor {
+    height: 400px;
+    border-radius: 12px;
+    border: 1px solid #333;
+  }
 </style>
 </head>
-
 <body>
 
 <div class="sidebar">
+  <div>
     <h2>ServerSide.Top</h2>
-
     <nav>
-        <a href="/dashboard" class="active"><i class="fa fa-table-columns"></i> Dashboard</a>
-        <a href="/executor"><i class="fa fa-code"></i> Executor</a>
-        <a href="/scripthub"><i class="fa fa-file-code"></i> Script Hub</a>
-        <a href="/games"><i class="fa fa-gamepad"></i> Games</a>
+      <a href="#" class="active" data-section="dashboard"><i class="fa fa-house"></i> Dashboard</a>
+      <a href="#" data-section="executor"><i class="fa fa-code"></i> Executor</a>
+      <a href="#" data-section="scripthub"><i class="fa fa-file-code"></i> Script Hub</a>
+      <a href="#" data-section="games" class="disabled"><i class="fa fa-gamepad"></i> Games</a>
     </nav>
+  </div>
+  <a href="#" onclick="alert('Visit Home Page!')"><i class="fa fa-house"></i> Home Page</a>
 </div>
 
-<div class="main">
-    <h1>Welcome to your Dashboard</h1>
+<div class="main-content">
 
-    <div class="cards">
-
-        <div class="card">
-            <h3>Quick Navigation</h3>
-            <div class="actions">
-                <a href="/executor">Executor</a>
-                <a href="/scripthub">Script Hub</a>
-            </div>
-        </div>
-
-        <div class="card">
-            <h3>Social</h3>
-            <div class="actions">
-                <a href="https://discord.gg/KQeNv3mM" target="_blank">Discord</a>
-            </div>
-        </div>
-
+  <!-- Dashboard Section -->
+  <div id="dashboard" class="section active">
+    <h1>Welcome to ServerSide.Top!</h1>
+    <div class="card">
+      <h3>Quick Actions</h3>
+      <img src="https://via.placeholder.com/400x200?text=Dashboard+Image" alt="Dashboard Image">
+      <div>
+        <button onclick="showSection('executor')" class="px-4 py-2 bg-red-600 rounded-md text-white">Executor</button>
+        <button onclick="showSection('scripthub')" class="px-4 py-2 bg-red-600 rounded-md text-white">Script Hub</button>
+      </div>
     </div>
+    <div class="card">
+      <h3>Community</h3>
+      <img src="https://via.placeholder.com/400x200?text=Community+Image" alt="Community Image">
+      <a href="https://discord.gg/KQeNv3mM" class="px-4 py-2 bg-gray-700 rounded-md text-white">Join Discord</a>
+    </div>
+  </div>
+
+  
+  <div id="executor" class="section">
+    <h1>Executor</h1>
+    <div class="card">
+      <h3>Monaco Editor</h3>
+      <div id="executorEditor"></div>
+      <button onclick="runScript()" class="px-4 py-2 bg-red-600 rounded-md text-white mt-2">Execute</button>
+    </div>
+  </div>
+
+ 
+  <div id="scripthub" class="section">
+    <h1>Script Hub</h1>
+    <div class="card">
+      <h3>Coming Soon!</h3>
+      <img src="https://via.placeholder.com/400x200?text=Script+Hub" alt="Script Hub Image">
+    </div>
+  </div>
+
+  
+  <div id="games" class="section">
+    <h1>Games</h1>
+    <div class="card blurred">
+      <h3>Coming Soon</h3>
+      <img src="https://via.placeholder.com/400x200?text=Games" alt="Games Image">
+    </div>
+  </div>
+
 </div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+<script>
+  
+  const links = document.querySelectorAll('.sidebar nav a');
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const section = link.dataset.section;
+      showSection(section);
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add('active');
+  }
+
+  
+  require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs' }});
+  require(['vs/editor/editor.main'], function() {
+    window.editor = monaco.editor.create(document.getElementById('executorEditor'), {
+      value: "-- Write your Lua script here\nprint('hai user')",
+      language: 'lua',
+      theme: 'vs-dark',
+      automaticLayout: true
+    });
+  });
+
+  function runScript() {
+    const code = window.editor.getValue();
+    alert("Script executed (demo):\n" + code);
+  }
+</script>
 
 </body>
 </html>
