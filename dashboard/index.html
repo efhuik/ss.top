@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ServerSide.Top | Dashboard</title>
-<link rel="icon" href="https://serversiding.neocities.org/assets/icon.png" type="image/png">
+<link rel="icon" href="https://via.placeholder.com/32?text=SS" type="image/png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0a0a0a, #1a1a1a, #2a2a2a);
+    background: linear-gradient(135deg, #0a0a0a, #121212, #1c1c1c);
     color: #f5f5f5;
     display: flex;
     min-height: 100vh;
@@ -26,10 +26,11 @@
     padding: 20px 0;
   }
   .sidebar h2 {
-    color: #ff4c4c;
+    color: #ff6b6b;
     text-align: center;
     font-size: 1.6rem;
     margin-bottom: 30px;
+    letter-spacing: 1px;
   }
   .sidebar nav {
     display: flex;
@@ -49,10 +50,15 @@
     transition: 0.25s;
     background: transparent;
   }
-  .sidebar a:hover, .sidebar a.active {
-    background: #ff4c4c;
+  .sidebar a:hover {
+    background: rgba(255, 75, 75, 0.2);
     color: #fff;
-    box-shadow: 0 0 10px #ff4c4c88;
+    box-shadow: 0 0 8px #ff4c4c55;
+  }
+  .sidebar a.active {
+    background: rgba(255, 75, 75, 0.3);
+    color: #fff;
+    box-shadow: 0 0 10px #ff4c4c66;
   }
   .sidebar a.disabled {
     background: #2a1a1a;
@@ -84,7 +90,7 @@
     margin-bottom: 20px;
   }
   .card h3 {
-    color: #ff7777;
+    color: #ff7b7b;
     margin-bottom: 10px;
   }
   .card img {
@@ -127,7 +133,7 @@
     <div class="card">
       <h3>Quick Actions</h3>
       <img src="https://via.placeholder.com/400x200?text=Dashboard+Image" alt="Dashboard Image">
-      <div>
+      <div class="flex gap-2 mt-2">
         <button onclick="showSection('executor')" class="px-4 py-2 bg-red-600 rounded-md text-white">Executor</button>
         <button onclick="showSection('scripthub')" class="px-4 py-2 bg-red-600 rounded-md text-white">Script Hub</button>
       </div>
@@ -139,7 +145,7 @@
     </div>
   </div>
 
-  
+  <!-- Executor Section -->
   <div id="executor" class="section">
     <h1>Executor</h1>
     <div class="card">
@@ -149,7 +155,7 @@
     </div>
   </div>
 
- 
+  <!-- Script Hub Section -->
   <div id="scripthub" class="section">
     <h1>Script Hub</h1>
     <div class="card">
@@ -158,7 +164,7 @@
     </div>
   </div>
 
-  
+  <!-- Games Section -->
   <div id="games" class="section">
     <h1>Games</h1>
     <div class="card blurred">
@@ -169,18 +175,20 @@
 
 </div>
 
-
+<!-- Monaco Editor -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 <script>
-  
+  // Sidebar navigation
   const links = document.querySelectorAll('.sidebar nav a');
   links.forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const section = link.dataset.section;
-      showSection(section);
-      links.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
+      if (!link.classList.contains('disabled')) {
+        showSection(section);
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
     });
   });
 
@@ -190,11 +198,11 @@
     if (sec) sec.classList.add('active');
   }
 
-  
+  // Monaco Editor Setup
   require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.39.0/min/vs' }});
   require(['vs/editor/editor.main'], function() {
     window.editor = monaco.editor.create(document.getElementById('executorEditor'), {
-      value: "-- Write your Lua script here\nprint('hai user')",
+      value: "-- Write your Lua script here\nprint('Hello ServerSide')",
       language: 'lua',
       theme: 'vs-dark',
       automaticLayout: true
