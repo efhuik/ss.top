@@ -21,15 +21,15 @@ img.headshot { border-radius:9999px; margin-right:1rem; }
 
 <!-- Sidebar -->
 <div class="sidebar">
-  <a href="/dashboard/" class="active"><img src="https://i.imgur.com/5b1C5ZC.png" />Dashboard</a>
-  <a href="/executor/"><img src="https://i.imgur.com/k9kFZ4P.png" />Executor</a>
-  <a href="/scripthub/"><img src="https://i.imgur.com/f3M4xKk.png" />Script Hub</a>
-  <a href="/games/"><img src="https://i.imgur.com/qaN5Q1G.png" />Games</a>
+  <a href="/dashboard/" class="active"><img src="https://img.icons8.com/ios-filled/50/ffffff/dashboard.png" />Dashboard</a>
+  <a href="/executor/"><img src="https://img.icons8.com/ios-filled/50/ffffff/code.png" />Executor</a>
+  <a href="/scripthub/"><img src="https://img.icons8.com/ios-filled/50/ffffff/script.png" />Script Hub</a>
+  <a href="/games/"><img src="https://img.icons8.com/ios-filled/50/ffffff/controller.png" />Games</a>
 </div>
 
 <!-- Content -->
 <div class="content">
-  <h1 class="text-4xl font-bold mb-6 text-red-500">Welcome to ServerSide.Top</h1>
+  <h1 class="text-4xl font-bold mb-6 text-red-500">Dashboard</h1>
 
   <div class="mb-6">
     <input type="text" id="robloxUsername" placeholder="Enter Roblox username" />
@@ -50,15 +50,16 @@ async function fetchRoblox() {
   const username = document.getElementById('robloxUsername').value.trim();
   if(!username) return alert('Enter a username');
   try {
-    const res = await fetch(`https://api.roblox.com/users/get-by-username?username=${username}`);
+    const res = await fetch(`https://users.roblox.com/v1/users/by-username?username=${username}`);
     const data = await res.json();
-    if(!data.Id) return alert('User not found');
+    if(!data.id) return alert('User not found');
     document.getElementById('robloxPanel').classList.remove('hidden');
-    document.getElementById('robloxHeadshot').src = `https://www.roblox.com/headshot-thumbnail/image?userId=${data.Id}&width=150&height=150&format=png`;
-    document.getElementById('robloxWelcome').innerText = `Welcome, ${data.Username}`;
-    document.getElementById('robloxID').innerText = `ID: ${data.Id}`;
+    document.getElementById('robloxHeadshot').src = `https://www.roblox.com/headshot-thumbnail/image?userId=${data.id}&width=150&height=150&format=png`;
+    document.getElementById('robloxWelcome').innerText = `Welcome, ${data.name}`;
+    document.getElementById('robloxID').innerText = `ID: ${data.id}`;
   } catch(err) { alert('Error fetching Roblox info'); }
 }
 </script>
+
 </body>
 </html>
