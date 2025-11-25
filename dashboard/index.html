@@ -1,25 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ServerSide.Top | Home</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body { background: #0d0d0d; color: #fff; font-family: 'Inter', sans-serif; }
-    nav a { color: #fff; margin-right: 1rem; transition: 0.2s; }
-    nav a:hover { color: #ff2424; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ServerSide.Top | Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body { font-family: 'Inter', sans-serif; background:#0d0d0d; color:#fff; margin:0; display:flex; }
+.sidebar { min-height:100vh; width:64; background:#111; padding:1.5rem; display:flex; flex-direction:column; }
+.sidebar a { display:flex; align-items:center; margin-bottom:1rem; color:#fff; transition:0.2s; text-decoration:none; }
+.sidebar a.active, .sidebar a:hover { color:#ff2424; }
+.sidebar img { width:24px; height:24px; margin-right:0.5rem; }
+.content { flex:1; padding:2rem; }
+input { background:#1a1a1a; border:1px solid #2b2b2b; color:#fff; padding:0.5rem; border-radius:0.5rem; }
+button { background:#ff2424; padding:0.5rem 1rem; border-radius:0.5rem; font-weight:bold; margin-left:0.5rem; }
+img.headshot { border-radius:9999px; margin-right:1rem; }
+</style>
 </head>
-<body class="p-8">
-  <nav class="mb-8">
-    <a href="home.html">Home</a>
-    <a href="executor.html">Executor</a>
-    <a href="scriptHub.html">Script Hub</a>
-    <a href="games.html">Games</a>
-  </nav>
+<body>
 
-  <h1 class="text-4xl font-bold mb-4 text-red-500">Welcome to ServerSide.Top</h1>
-  <p class="opacity-80 text-lg">Access our platform to explore scripts, games, and more.</p>
+<!-- Sidebar -->
+<div class="sidebar">
+  <a href="/dashboard/" class="active"><img src="https://i.imgur.com/5b1C5ZC.png" />Dashboard</a>
+  <a href="/executor/"><img src="https://i.imgur.com/k9kFZ4P.png" />Executor</a>
+  <a href="/scripthub/"><img src="https://i.imgur.com/f3M4xKk.png" />Script Hub</a>
+  <a href="/games/"><img src="https://i.imgur.com/qaN5Q1G.png" />Games</a>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <h1 class="text-4xl font-bold mb-6 text-red-500">Welcome to ServerSide.Top</h1>
+
+  <div class="mb-6">
+    <input type="text" id="robloxUsername" placeholder="Enter Roblox username" />
+    <button onclick="fetchRoblox()">Check</button>
+  </div>
+
+  <div id="robloxPanel" class="flex items-center mt-4 hidden">
+    <img id="robloxHeadshot" class="headshot" src="" alt="Headshot" width="80" height="80" />
+    <div>
+      <p id="robloxWelcome" class="text-xl font-bold"></p>
+      <p id="robloxID" class="opacity-70"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+async function fetchRoblox() {
+  const username = document.getElementById('robloxUsername').value.trim();
+  if(!username) return alert('Enter a username');
+  try {
+    const res = await fetch(`https://api.roblox.com/users/get-by-username?username=${username}`);
+    const data = await res.json();
+    if(!data.Id) return alert('User not found');
+    document.getElementById('robloxPanel').classList.remove('hidden');
+    document.getElementById('robloxHeadshot').src = `https://www.roblox.com/headshot-thumbnail/image?userId=${data.Id}&width=150&height=150&format=png`;
+    document.getElementById('robloxWelcome').innerText = `Welcome, ${data.Username}`;
+    document.getElementById('robloxID').innerText = `ID: ${data.Id}`;
+  } catch(err) { alert('Error fetching Roblox info'); }
+}
+</script>
 </body>
 </html>
