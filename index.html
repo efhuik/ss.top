@@ -5,51 +5,58 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Serverside.Top</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: black;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+    }
+    button {
+        background-color: red;
+        color: black;
+        font-size: 24px;
+        font-weight: bold;
+        padding: 20px 40px;
+        margin: 10px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: darkred;
+    }
+    #pricing {
+        margin-top: 20px;
+        color: red;
+        font-size: 28px;
+        display: none;
+    }
+</style>
 </head>
-<body class="bg-black text-white">
+<body>
 
-<!-- Hero Section -->
+<h1>Serverside.Top</h1>
+<p>The best Roblox serverside platform.</p>
 
-<section class="relative flex flex-col items-center justify-center min-h-screen px-4 text-center">
-    <!-- Background gradient shapes -->
-    <div class="absolute inset-0 -z-10 overflow-hidden">
-        <div class="absolute top-0 left-1/2 w-[60rem] h-[60rem] -translate-x-1/2 bg-gradient-to-br from-red-600 to-red-400 opacity-30 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-1/2 w-[50rem] h-[50rem] -translate-x-1/2 bg-gradient-to-tr from-red-500 to-red-700 opacity-30 rounded-full blur-3xl"></div>
-    </div>
+<button onclick="goDashboard()">Dashboard</button> <button onclick="togglePricing()">Pricing</button>
 
-```
-<h1 class="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">Serverside.Top</h1>
-<p class="text-zinc-400 mb-10 max-w-xl">The most amazing Roblox serverside platform. Clean, fast, and ready for you to test.</p>
-
-<!-- Buttons -->
-<div class="flex flex-col md:flex-row gap-6">
-    <button class="bg-red-600 hover:bg-red-500 px-10 py-4 rounded-lg text-black font-bold text-xl shadow-lg shadow-red-700" onclick="goDashboard()">
-        <i class="fa-solid fa-dashboard mr-2"></i> Dashboard
-    </button>
-    <button class="bg-red-600 hover:bg-red-500 px-10 py-4 rounded-lg text-black font-bold text-xl shadow-lg shadow-red-700" onclick="togglePricing()">
-        <i class="fa-solid fa-tag mr-2"></i> Pricing
-    </button>
-</div>
-
-<!-- Pricing Section -->
-<div id="pricing" class="mt-12 text-red-400 text-2xl hidden">Not available yet.</div>
-```
-
-</section>
+<div id="pricing">Not available yet.</div>
 
 <script>
 function togglePricing() {
     const pricing = document.getElementById('pricing');
-    pricing.classList.toggle('hidden');
-    if (!pricing.classList.contains('hidden')) {
-        pricing.scrollIntoView({ behavior: 'smooth' });
-    }
+    pricing.style.display = pricing.style.display === 'none' ? 'block' : 'none';
 }
 
 function goDashboard() {
-    alert("Dashboard page coming soon!");
+    alert('Dashboard page coming soon!');
 }
 </script>
 
