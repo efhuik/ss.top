@@ -1,140 +1,103 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ServerSide.Top</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serverside.Top</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #000;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    header {
+        background-color: #111;
+        padding: 40px;
+        text-align: center;
+        border-bottom: 2px solid #0af;
+    }
+    header h1 {
+        font-size: 48px;
+        color: #0af;
+        margin: 0 0 10px 0;
+    }
+    header p {
+        font-size: 20px;
+        color: #aaa;
+    }
+    main {
+        flex: 1;
+        padding: 50px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    section {
+        background-color: #111;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
+    }
+    section h2 {
+        color: #0af;
+        margin-top: 0;
+    }
+    section p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #ddd;
+    }
+    footer {
+        text-align: center;
+        padding: 20px;
+        color: #555;
+        border-top: 1px solid #333;
+    }
+    a {
+        color: #0af;
+        text-decoration: none;
+    }
+</style>
 </head>
-<body class="bg-black text-white">
-  <!-- Background Glow -->
-  <div class="absolute inset-0 -z-10 overflow-hidden">
-    <div class="absolute top-[-20rem] left-0 right-0 blur-3xl opacity-40">
-      <div class="mx-auto h-[40rem] w-[40rem] bg-gradient-to-r from-red-500 to-red-700 rounded-full"></div>
-    </div>
-  </div>
+<body>
 
-  <!-- Navbar -->
-  <nav class="flex justify-between items-center px-6 py-6 max-w-7xl mx-auto">
-    <h1 class="text-2xl font-bold tracking-wide text-red-500">ServerSide<span class="text-white">.Top</span></h1>
-    <div class="space-x-6 hidden md:block">
-      <a class="hover:text-red-500 transition" href="#features">Features</a>
-      <a class="hover:text-red-500 transition" href="#metrics">Metrics</a>
-      <a class="hover:text-red-500 transition" href="#footer">Contact</a>
-    </div>
-  </nav>
+<header>
+    <h1>Serverside.Top</h1>
+    <p>The most amazing serverside you’ll ever see.</p>
+</header>
 
-  <!-- Hero Section -->
-  <section class="text-center py-40 px-4 max-w-4xl mx-auto">
-    <h1 class="text-6xl font-extrabold leading-tight">
-      The Next Generation
-      <span class="bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">Roblox Serverside</span>
-    </h1>
-    <p class="text-zinc-400 mt-6 text-lg">
-      A fully web-based serverside for roblox that is Cheap, User friendly, And one of the best.
-    </p>
+<main>
+    <section>
+        <h2>Why Serverside.Top is Incredible</h2>
+        <p>Serverside.Top combines speed, reliability, and simplicity</p>
+    </section>
 
-    <div class="mt-10 space-x-4">
-      <a class="px-6 py-4 bg-red-600 hover:bg-red-700 rounded-lg font-semibold shadow-red-500 shadow-lg inline-block cursor-pointer">
-        <i class="fa-solid fa-bolt mr-2"></i>Plans
-      </a>
-      <a href="discord.gg/KQeNv3mM" class="px-6 py-4 bg-zinc-900 hover:bg-zinc-800 rounded-lg font-semibold inline-block cursor-pointer">
-        <i class="fab fa-discord text-red-500 mr-2"></i>Join Discord
-      </a>
-      <a href="#" class="px-6 py-4 bg-zinc-900 hover:bg-zinc-800 rounded-lg font-semibold inline-block cursor-pointer">
-        Dashboard
-      </a>
-    </div>
-  </section>
+```
+<section>
+    <h2>Features You’ll Love</h2>
+    <p>Very fast performance<br>
+       User Friendly UI<br>
+       Works on any device<br>
+       Easy to navigate<br>
+       Looks simple</p>
+</section>
 
-  <!-- Features -->
-  <section id="features" class="py-32 max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-20">
-    <div>
-      <div class="text-red-500 bg-red-600/20 p-4 inline-block rounded-lg border border-red-700">
-        <i class="fa-solid fa-globe text-2xl"></i>
-      </div>
-      <h2 class="text-3xl font-bold mt-6">Fully Browser-Based Control</h2>
-      <p class="text-zinc-400 mt-4 text-lg">
-        Run scripts, cause ruckus, and do whatever you want..Without getting a virus
-      </p>
-    </div>
-    <div>
-      <div class="w-full h-80 bg-gradient-to-br from-red-600 to-red-900 rounded-xl shadow-red-600 shadow-xl"></div>
-    </div>
-  </section>
+<section>
+    <h2>Join the Revolution</h2>
+    <p>Don’t wait—experience the future of platforms now. <a href="#">Sign up</a> or <a href="#">try a demo</a> and see why Serverside.Top is the best.</p>
+</section>
+```
 
-  <!-- More Features -->
-  <section class="py-32 max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-20">
-    <div>
-      <div class="w-full h-80 bg-gradient-to-br from-red-600 to-red-900 rounded-xl shadow-red-600 shadow-xl"></div>
-    </div>
-    <div>
-      <div class="text-red-500 bg-red-600/20 p-4 inline-block rounded-lg border border-red-700">
-        <i class="fa-solid fa-star text-2xl"></i>
-      </div>
-      <h2 class="text-3xl font-bold mt-6">Premium Features, Zero Limitations</h2>
-      <p class="text-zinc-400 mt-4 text-lg">
-        Experience unmatched speed, reliability, and freedom. Execute unlimited scripts and manage advanced tools effortlessly.
-      </p>
-    </div>
-  </section>
+</main>
 
-  <!-- Metrics -->
-  <section id="metrics" class="py-32 bg-zinc-950">
-    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 px-4">
-      <div>
-        <h3 class="text-red-500 font-bold text-2xl mb-4">Metrics</h3>
-        <h1 class="text-4xl font-bold mb-6">Trusted. Powerful. Proven.</h1>
-        <p class="text-zinc-400 text-lg mb-10">
-          ServerSide.Top powers thousands of users across a growing number of supported experiences.
-        </p>
+<footer>
+    &copy; 2025 Serverside.Top. All rights reserved.
+</footer>
 
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="p-5 bg-zinc-900 border border-zinc-700 rounded-lg">
-            <h1 class="text-red-500 text-4xl font-bold">100+</h1>
-            <p class="mt-2 text-zinc-300">Verified Users</p>
-          </div>
-          <div class="p-5 bg-zinc-900 border border-zinc-700 rounded-lg">
-            <h1 class="text-red-500 text-4xl font-bold">20+</h1>
-            <p class="mt-2 text-zinc-300">Games Logged</p>
-          </div>
-          <div class="p-5 bg-zinc-900 border border-zinc-700 rounded-lg">
-            <h1 class="text-red-500 text-4xl font-bold">99%</h1>
-            <p class="mt-2 text-zinc-300">User Satisfaction</p>
-          </div>
-          <div class="p-5 bg-zinc-900 border border-zinc-700 rounded-lg">
-            <h1 class="text-red-500 text-4xl font-bold">24/7</h1>
-            <p class="mt-2 text-zinc-300">Uptime Stability</p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="w-full h-96 bg-gradient-to-br from-red-600 to-red-900 rounded-xl shadow-red-600 shadow-xl"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer id="footer" class="bg-zinc-900 py-16 text-zinc-400">
-    <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-3 gap-10">
-      <div>
-        <h1 class="text-2xl text-red-500 font-bold mb-4">ServerSide.Top</h1>
-        <p>All rights reserved</p>
-      </div>
-      <div>
-        <h3 class="text-red-500 font-bold mb-4">Links</h3>
-        <ul class="space-y-2">
-          <li><a class="hover:text-red-500" href="https://discord.gg/KQeNv3mM">Discord</a></li>
-          <li><a class="hover:text-red-500" href="/terms">Terms</a></li>
-          <li><a class="hover:text-red-500" href="/dashboard">Dashboard</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-red-500 font-bold mb-4">Contact</h3>
-        <p>support@serverside.top</p>
-      </div>
-    </div>
-  </footer>
 </body>
 </html>
