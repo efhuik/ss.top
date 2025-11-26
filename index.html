@@ -5,86 +5,51 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Serverside.Top</title>
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #000;
-        color: #eee;
-        line-height: 1.6;
-        text-align: center;
-    }
-    header {
-        padding: 40px;
-        border-bottom: 1px solid #440000;
-    }
-    header h1 {
-        margin: 0 0 10px 0;
-        font-size: 40px;
-        color: #ff3333;
-    }
-    header p {
-        margin: 0;
-        font-size: 18px;
-        color: #ff6666;
-    }
-    main {
-        max-width: 800px;
-        margin: 50px auto;
-        padding: 0 20px;
-    }
-    button {
-        background-color: #ff3333;
-        color: #000;
-        border: none;
-        padding: 20px 40px;
-        font-size: 24px;
-        margin: 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.3s;
-    }
-    button:hover {
-        background-color: #ff5555;
-    }
-    #pricing {
-        display: none;
-        margin-top: 20px;
-        font-size: 20px;
-        color: #ff6666;
-    }
-</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
-<body>
+<body class="bg-black text-white">
 
-<header>
-    <h1>Serverside.Top</h1>
-    <p>The most amazing platform you’ll ever use.</p>
-</header>
+<!-- Hero Section -->
 
-<main>
-    <button onclick="goDashboard()">Dashboard</button>
-    <button onclick="togglePricing()">Pricing</button>
+<section class="relative flex flex-col items-center justify-center min-h-screen px-4 text-center">
+    <!-- Background gradient shapes -->
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+        <div class="absolute top-0 left-1/2 w-[60rem] h-[60rem] -translate-x-1/2 bg-gradient-to-br from-red-600 to-red-400 opacity-30 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/2 w-[50rem] h-[50rem] -translate-x-1/2 bg-gradient-to-tr from-red-500 to-red-700 opacity-30 rounded-full blur-3xl"></div>
+    </div>
 
 ```
-<div id="pricing">Not available yet.</div>
+<h1 class="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">Serverside.Top</h1>
+<p class="text-zinc-400 mb-10 max-w-xl">The most amazing Roblox serverside platform. Clean, fast, and ready for you to test.</p>
+
+<!-- Buttons -->
+<div class="flex flex-col md:flex-row gap-6">
+    <button class="bg-red-600 hover:bg-red-500 px-10 py-4 rounded-lg text-black font-bold text-xl shadow-lg shadow-red-700" onclick="goDashboard()">
+        <i class="fa-solid fa-dashboard mr-2"></i> Dashboard
+    </button>
+    <button class="bg-red-600 hover:bg-red-500 px-10 py-4 rounded-lg text-black font-bold text-xl shadow-lg shadow-red-700" onclick="togglePricing()">
+        <i class="fa-solid fa-tag mr-2"></i> Pricing
+    </button>
+</div>
+
+<!-- Pricing Section -->
+<div id="pricing" class="mt-12 text-red-400 text-2xl hidden">Not available yet.</div>
 ```
 
-</main>
+</section>
 
 <script>
 function togglePricing() {
     const pricing = document.getElementById('pricing');
-    if (pricing.style.display === 'none' || pricing.style.display === '') {
-        pricing.style.display = 'block';
+    pricing.classList.toggle('hidden');
+    if (!pricing.classList.contains('hidden')) {
         pricing.scrollIntoView({ behavior: 'smooth' });
-    } else {
-        pricing.style.display = 'none';
     }
 }
 
 function goDashboard() {
-    alert("Dashboard page is coming soon!");
+    alert("Dashboard page coming soon!");
 }
 </script>
 
