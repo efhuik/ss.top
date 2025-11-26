@@ -12,48 +12,46 @@
         background-color: #000;
         color: #eee;
         line-height: 1.6;
+        text-align: center;
     }
     header {
         padding: 40px;
-        text-align: center;
-        border-bottom: 1px solid #222;
+        border-bottom: 1px solid #440000;
     }
     header h1 {
         margin: 0 0 10px 0;
         font-size: 40px;
-        color: #0af;
+        color: #ff3333;
     }
     header p {
         margin: 0;
         font-size: 18px;
-        color: #aaa;
+        color: #ff6666;
     }
     main {
         max-width: 800px;
         margin: 50px auto;
         padding: 0 20px;
     }
-    section {
-        margin-bottom: 40px;
-    }
-    section h2 {
-        color: #0af;
+    button {
+        background-color: #ff3333;
+        color: #000;
+        border: none;
+        padding: 20px 40px;
         font-size: 24px;
-        margin-bottom: 10px;
+        margin: 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
     }
-    section p {
-        font-size: 16px;
-        color: #ddd;
+    button:hover {
+        background-color: #ff5555;
     }
-    a {
-        color: #0af;
-        text-decoration: underline;
-    }
-    footer {
-        text-align: center;
-        padding: 20px;
-        border-top: 1px solid #222;
-        color: #555;
+    #pricing {
+        display: none;
+        margin-top: 20px;
+        font-size: 20px;
+        color: #ff6666;
     }
 </style>
 </head>
@@ -65,31 +63,30 @@
 </header>
 
 <main>
-    <section>
-        <h2>Why It’s Incredible</h2>
-        <p>Serverside.Top is fast, reliable, and incredibly easy to use. Everything works smoothly, giving you a seamless experience without unnecessary clutter or distractions.</p>
-    </section>
+    <button onclick="goDashboard()">Dashboard</button>
+    <button onclick="togglePricing()">Pricing</button>
 
 ```
-<section>
-    <h2>Features You’ll Love</h2>
-    <p>- Clean and minimal black UI<br>
-       - Super responsive on any device<br>
-       - Simple, intuitive navigation<br>
-       - Lightweight and fast</p>
-</section>
-
-<section>
-    <h2>Get Started</h2>
-    <p>Ready to experience Serverside.Top? <a href="#">Sign up</a> or <a href="#">try a demo</a> today and see why it’s so popular.</p>
-</section>
+<div id="pricing">Not available yet.</div>
 ```
 
 </main>
 
-<footer>
-    &copy; 2025 Serverside.Top. All rights reserved.
-</footer>
+<script>
+function togglePricing() {
+    const pricing = document.getElementById('pricing');
+    if (pricing.style.display === 'none' || pricing.style.display === '') {
+        pricing.style.display = 'block';
+        pricing.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        pricing.style.display = 'none';
+    }
+}
+
+function goDashboard() {
+    alert("Dashboard page is coming soon!");
+}
+</script>
 
 </body>
 </html>
