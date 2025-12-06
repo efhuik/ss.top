@@ -1,64 +1,84 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Serverside.Top</title>
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: black;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        text-align: center;
-    }
-    button {
-        background-color: red;
-        color: black;
-        font-size: 24px;
-        font-weight: bold;
-        padding: 20px 40px;
-        margin: 10px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-    }
-    button:hover {
-        background-color: darkred;
-    }
-    #pricing {
-        margin-top: 20px;
-        color: red;
-        font-size: 28px;
-        display: none;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>Redeem Key</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 40px auto;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
+    <h2>Redeem Your Key</h2>
 
-<h1>Serverside.Top</h1>
-<p>The best Roblox serverside platform.</p>
+    <label for="username">Username:</label>
+    <input id="username" type="text" placeholder="Enter your username">
 
-<button onclick="goDashboard()">Dashboard</button> <button onclick="togglePricing()">Pricing</button>
+    <label for="key">Key:</label>
+    <input id="key" type="text" placeholder="Enter your key">
 
-<div id="pricing">Not available yet.</div>
+    <button id="redeemBtn" onclick="redeem()">Redeem</button>
 
-<script>
-function togglePricing() {
-    const pricing = document.getElementById('pricing');
-    pricing.style.display = pricing.style.display === 'none' ? 'block' : 'none';
-}
+    <p id="result"></p>
 
-function goDashboard() {
-    alert('Dashboard page coming soon!');
-}
-</script>
+    <script>
+        async function redeem() {
+            const username = document.getElementById("username").value.trim();
+            const key = document.getElementById("key").value.trim();
+            const result = document.getElementById("result");
+            const btn = document.getElementById("redeemBtn");
 
+            if (!username || !key) {
+                result.style.color = "red";
+                result.textContent = "Please enter both username and key.";
+                return;
+            }
+
+            btn.disabled = true;
+            result.style.color = "black";
+            result.textContent = "Processing...";
+
+            try {
+                const res = await fetch("/redeem", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, key })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    result.style.color = "green";
+                } else {
+                    result.style.color = "red";
+                }
+
+                result.textContent = data.message + (data.tier ? ` (Tier: ${data.tier})` : "");
+
+            } catch (err) {
+                result.style.color = "red";
+                result.textContent = "Error contacting server.";
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+            }
+        }
+    </script>
 </body>
 </html>
