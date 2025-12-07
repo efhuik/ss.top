@@ -5,71 +5,78 @@
     <title>Redeem Your Key</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* Reset & basic styling */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
-            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             padding: 20px;
         }
-        .container {
+
+        .card {
             background: #fff;
-            padding: 30px 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 25px 20px;
+            border-radius: 10px;
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             text-align: center;
         }
-        h2 {
+
+        h1 {
+            font-size: 24px;
             margin-bottom: 20px;
             color: #333;
         }
+
         input {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0 20px;
-            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
             border: 1px solid #ccc;
-            font-size: 16px;
+            font-size: 15px;
         }
+
         button {
             width: 100%;
-            padding: 12px;
-            background: #6e8efb;
-            color: #fff;
-            font-size: 16px;
+            padding: 10px;
             border: none;
-            border-radius: 8px;
+            background: #007BFF;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 16px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: background 0.2s ease;
         }
+
         button:hover {
-            background: #5a77e3;
+            background: #0056b3;
         }
+
         #result {
             margin-top: 20px;
-            font-weight: bold;
+            font-weight: 600;
             min-height: 24px;
         }
+
         @media (max-width: 480px) {
-            .container {
+            .card {
                 padding: 20px;
             }
-            h2 { font-size: 22px; }
+
+            h1 { font-size: 20px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Redeem Your Key</h2>
-        <input type="text" id="username" placeholder="Enter your username">
-        <input type="text" id="key" placeholder="Enter your key">
-        <button id="redeemBtn" onclick="redeem()">Redeem</button>
+    <div class="card">
+        <h1>Redeem Your Key</h1>
+        <input type="text" id="username" placeholder="Username">
+        <input type="text" id="key" placeholder="Key">
+        <button id="redeemBtn" onclick="redeem()">redeem</button>
         <p id="result"></p>
     </div>
 
@@ -82,7 +89,7 @@
 
             if (!username || !key) {
                 result.style.color = "red";
-                result.textContent = "Please enter both username and key.";
+                result.textContent = "plz enter both username and key";
                 return;
             }
 
@@ -104,13 +111,13 @@
                     result.textContent = `✅ ${data.message}` + (data.tier ? ` (Tier: ${data.tier})` : "");
                 } else {
                     result.style.color = "red";
-                    result.textContent = `❌ ${data.message || "Something went wrong."}`;
+                    result.textContent = `❌ ${data.message || "something went wrong blud"}`;
                 }
 
             } catch (err) {
                 console.error(err);
                 result.style.color = "red";
-                result.textContent = "❌ Error contacting server.";
+                result.textContent = "error contacting server";
             } finally {
                 btn.disabled = false;
             }
