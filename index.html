@@ -1,127 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Redeem Your Key</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+<meta charset="UTF-8">
+<title>Redeem Your Key</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background: #121212;
+        color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .card {
+        background: #1e1e1e;
+        padding: 30px 25px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #fff;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: 1px solid #555;
+        background: #2b2b2b;
+        color: #eee;
+        font-size: 15px;
+    }
+
+    input::placeholder {
+        color: #aaa;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        background: #3a8efc;
+        color: #fff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    button:hover {
+        background: #357ae8;
+    }
+
+    #result {
+        margin-top: 20px;
+        font-weight: 600;
+        min-height: 24px;
+    }
+
+    @media (max-width: 480px) {
+        .card {
             padding: 20px;
         }
-
-        .card {
-            background: #fff;
-            padding: 25px 20px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 380px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 15px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background: #007BFF;
-            color: #fff;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        button:hover {
-            background: #0056b3;
-        }
-
-        #result {
-            margin-top: 20px;
-            font-weight: 600;
-            min-height: 24px;
-        }
-
-        @media (max-width: 480px) {
-            .card {
-                padding: 20px;
-            }
-
-            h1 { font-size: 20px; }
-        }
-    </style>
+        h1 { font-size: 20px; }
+    }
+</style>
 </head>
 <body>
-    <div class="card">
-        <h1>Redeem Your Key</h1>
-        <input type="text" id="username" placeholder="Username">
-        <input type="text" id="key" placeholder="Key">
-        <button id="redeemBtn" onclick="redeem()">redeem</button>
-        <p id="result"></p>
-    </div>
+<div class="card">
+    <h1>redeem your key</h1>
+    <input type="text" id="username" placeholder="Username">
+    <input type="text" id="key" placeholder="Key">
+    <button id="redeemBtn" onclick="redeem()">Redeem</button>
+    <p id="result"></p>
+</div>
 
-    <script>
-        async function redeem() {
-            const username = document.getElementById("username").value.trim();
-            const key = document.getElementById("key").value.trim();
-            const result = document.getElementById("result");
-            const btn = document.getElementById("redeemBtn");
+<script>
+async function redeem() {
+    const username = document.getElementById("username").value.trim();
+    const key = document.getElementById("key").value.trim();
+    const result = document.getElementById("result");
+    const btn = document.getElementById("redeemBtn");
 
-            if (!username || !key) {
-                result.style.color = "red";
-                result.textContent = "plz enter both username and key";
-                return;
-            }
+    if (!username || !key) {
+        result.style.color = "#ff4d4f";
+        result.textContent = "Please enter both username and key.";
+        return;
+    }
 
-            btn.disabled = true;
-            result.style.color = "black";
-            result.textContent = "Processing...";
+    btn.disabled = true;
+    result.style.color = "#ccc";
+    result.textContent = "Processing...";
 
-            try {
-                const res = await fetch("https://api.serverside.top/redeem", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ username, key })
-                });
+    try {
+        const res = await fetch("https://api.serverside.top/redeem", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, key })
+        });
 
-                const data = await res.json();
+        const data = await res.json();
 
-                if (res.ok && data.success) {
-                    result.style.color = "green";
-                    result.textContent = `✅ ${data.message}` + (data.tier ? ` (Tier: ${data.tier})` : "");
-                } else {
-                    result.style.color = "red";
-                    result.textContent = `❌ ${data.message || "something went wrong blud"}`;
-                }
-
-            } catch (err) {
-                console.error(err);
-                result.style.color = "red";
-                result.textContent = "error contacting server";
-            } finally {
-                btn.disabled = false;
-            }
+        if (res.ok && data.success) {
+            result.style.color = "#4caf50";
+            result.textContent = `✅ ${data.message}` + (data.tier ? ` (Tier: ${data.tier})` : "");
+        } else {
+            result.style.color = "#ff4d4f";
+            result.textContent = `❌ ${data.message || "something went wrong ):"}`;
         }
-    </script>
+
+    } catch (err) {
+        console.error(err);
+        result.style.color = "#ff4d4f";
+        result.textContent = "error contacting server :/";
+    } finally {
+        btn.disabled = false;
+    }
+}
+</script>
 </body>
 </html>
