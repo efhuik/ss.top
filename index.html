@@ -2,40 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Redeem Key</title>
+    <title>Redeem Your Key</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        /* Reset & basic styling */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: Arial, sans-serif;
-            max-width: 400px;
-            margin: 40px auto;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        input, button {
+        .container {
+            background: #fff;
+            padding: 30px 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            box-sizing: border-box;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
         }
         button {
+            width: 100%;
+            padding: 12px;
+            background: #6e8efb;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #5a77e3;
         }
         #result {
             margin-top: 20px;
             font-weight: bold;
+            min-height: 24px;
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            h2 { font-size: 22px; }
         }
     </style>
 </head>
 <body>
-    <h2>Redeem Your Key</h2>
-
-    <label for="username">Username:</label>
-    <input id="username" type="text" placeholder="Enter your username">
-
-    <label for="key">Key:</label>
-    <input id="key" type="text" placeholder="Enter your key">
-
-    <button id="redeemBtn" onclick="redeem()">Redeem</button>
-
-    <p id="result"></p>
+    <div class="container">
+        <h2>Redeem Your Key</h2>
+        <input type="text" id="username" placeholder="Enter your username">
+        <input type="text" id="key" placeholder="Enter your key">
+        <button id="redeemBtn" onclick="redeem()">Redeem</button>
+        <p id="result"></p>
+    </div>
 
     <script>
         async function redeem() {
@@ -55,7 +91,7 @@
             result.textContent = "Processing...";
 
             try {
-                const res = await fetch("/redeem", {
+                const res = await fetch("https://api.serverside.top/redeem", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ username, key })
@@ -63,18 +99,18 @@
 
                 const data = await res.json();
 
-                if (data.success) {
+                if (res.ok && data.success) {
                     result.style.color = "green";
+                    result.textContent = `✅ ${data.message}` + (data.tier ? ` (Tier: ${data.tier})` : "");
                 } else {
                     result.style.color = "red";
+                    result.textContent = `❌ ${data.message || "Something went wrong."}`;
                 }
 
-                result.textContent = data.message + (data.tier ? ` (Tier: ${data.tier})` : "");
-
             } catch (err) {
-                result.style.color = "red";
-                result.textContent = "Error contacting server.";
                 console.error(err);
+                result.style.color = "red";
+                result.textContent = "❌ Error contacting server.";
             } finally {
                 btn.disabled = false;
             }
